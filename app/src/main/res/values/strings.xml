@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name"> Alert Drowsiness</string>
+    <string-array name="names">
+        <item>18D1 28316</item>
+        <item>29U1 28316</item>
+    </string-array>
+</resources>
