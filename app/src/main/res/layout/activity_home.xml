@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,52 +21,54 @@
 
             <ImageView
 
+                android:id="@+id/imgoto"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/oto"
-                android:id="@+id/imgoto"/>
+                android:src="@drawable/oto" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
                 <ImageView
 
+                    android:id="@+id/imgnoinghi"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+
                     android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_google_map" />
 
-                    android:src="@drawable/nha"
-                    android:id="@+id/imgnoinghi"/>
                 <ImageView
 
+                    android:id="@+id/imgiconhome"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="5dp"
                     android:layout_gravity="center"
-                    android:id="@+id/imgiconhome"/>
+                    android:layout_marginLeft="5dp" />
+
                 <ImageView
 
+                    android:id="@+id/imglichsu"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
 
-                    android:src="@drawable/lichsu"
-                    android:id="@+id/imglichsu"/>
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_history" />
             </LinearLayout>
 
             <ImageView
 
+                android:id="@+id/imgcsdl"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/csdl"
-                android:id="@+id/imgcsdl"/>
-
-
+                android:src="@drawable/ic_update" />
 
 
         </LinearLayout>

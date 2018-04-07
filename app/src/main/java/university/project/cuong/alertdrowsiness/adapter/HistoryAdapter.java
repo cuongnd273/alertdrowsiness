@@ -56,11 +56,15 @@ public class HistoryAdapter extends BaseAdapter {
         }
         ViewHolder viewHolder= (ViewHolder) v.getTag();
         viewHolder.time.setText(String.valueOf(histories.get(i).getTime()));
+        viewHolder.duration.setText(String.valueOf(histories.get(i).getDuration()));
         return v;
     }
     class ViewHolder{
         TextView time;
         TextView duration;
         ImageView map;
+    }
+    public void refresh(){
+        this.notifyDataSetChanged();
     }
 }

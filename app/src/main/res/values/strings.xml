@@ -4,4 +4,5 @@
         <item>18D1 28316</item>
         <item>29U1 28316</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>
