@@ -20,12 +20,10 @@ import university.project.cuong.alertdrowsiness.R;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView imgdetect;
-    private ImageView imgcndl;
-    private ImageView imglichsu;
-    private ImageView imgnoinghi;
+    private ImageView imgupdate;
+    private ImageView imghistrory;
+    private ImageView imgplaces;
     static final String PERMISSION = Manifest.permission.CAMERA;
-    ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +34,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getControls() {
-        imgdetect = (ImageView) findViewById(R.id.imgoto);
+        imgdetect = (ImageView) findViewById(R.id.img_driver);
         imgdetect.setOnClickListener(this);
-        imgcndl = (ImageView) findViewById(R.id.imgcsdl);
-        imgcndl.setOnClickListener(this);
-        imglichsu = (ImageView) findViewById(R.id.imglichsu);
-        imglichsu.setOnClickListener(this);
-        imgnoinghi = (ImageView) findViewById(R.id.imgnoinghi);
-        imgnoinghi.setOnClickListener(this);
+        imgupdate = (ImageView) findViewById(R.id.img_update);
+        imgupdate.setOnClickListener(this);
+        imghistrory = (ImageView) findViewById(R.id.img_history);
+        imghistrory.setOnClickListener(this);
+        imgplaces = (ImageView) findViewById(R.id.img_places);
+        imgplaces.setOnClickListener(this);
 
 
     }
@@ -70,7 +68,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case R.id.imgoto:
+            case R.id.img_driver:
                 boolean hasCamera = isPermissionGranted(PERMISSION);
                 if (hasCamera) {
                     intent = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
@@ -79,15 +77,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     ActivityCompat.requestPermissions(HomeActivity.this, new String[]{PERMISSION}, 101);
                 }
                 break;
-            case R.id.imgcsdl:
+            case R.id.img_update:
                 intent = new Intent(HomeActivity.this, UpdatVersionActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.imglichsu:
+            case R.id.img_history:
                 intent = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.imgnoinghi:
+            case R.id.img_places:
                 intent = new Intent(HomeActivity.this, FindCoffeeActivity.class);
                 startActivity(intent);
                 break;

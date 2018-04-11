@@ -51,9 +51,9 @@ public class CascadeFileUtil {
         CascadeClassifier mJavaDetector = null;
         try {
             // load cascade file from application resources
-            InputStream is = context.getResources().openRawResource(R.raw.haarcascade_eye_tree_eyeglasses);
+            InputStream is = context.getResources().openRawResource(R.raw.haarcascade_eye);
             File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "haarcascade_eye_tree_eyeglasses.xml");
+            File mCascadeFile = new File(cascadeDir, "haarcascade_eye.xml");
             FileOutputStream os = new FileOutputStream(mCascadeFile);
 
             byte[] buffer = new byte[4096];
@@ -81,9 +81,9 @@ public class CascadeFileUtil {
         CascadeClassifier mJavaDetector = null;
         try {
             // load cascade file from application resources
-            InputStream is = context.getResources().openRawResource(R.raw.haarcascade_eye_tree_eyeglasses);
+            InputStream is = context.getResources().openRawResource(R.raw.haarcascade_eye);
             File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "haarcascade_eye_tree_eyeglasses.xml");
+            File mCascadeFile = new File(cascadeDir, "haarcascade_eye.xml");
             FileOutputStream os = new FileOutputStream(mCascadeFile);
 
             byte[] buffer = new byte[4096];

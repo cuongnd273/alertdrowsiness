@@ -21,7 +21,7 @@
 
             <ImageView
 
-                android:id="@+id/imgoto"
+                android:id="@+id/img_driver"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -36,10 +36,9 @@
 
                 <ImageView
 
-                    android:id="@+id/imgnoinghi"
+                    android:id="@+id/img_places"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/ic_google_map" />
 
@@ -53,7 +52,7 @@
 
                 <ImageView
 
-                    android:id="@+id/imglichsu"
+                    android:id="@+id/img_history"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
 
@@ -63,7 +62,7 @@
 
             <ImageView
 
-                android:id="@+id/imgcsdl"
+                android:id="@+id/img_update"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"

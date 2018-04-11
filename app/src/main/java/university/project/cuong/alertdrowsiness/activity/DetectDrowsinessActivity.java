@@ -67,7 +67,6 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
     long timeClose = System.currentTimeMillis();
     boolean closeEye = false;
     SVM svm;
-    MediaPlayer alarm;
     BaseLoaderCallback callback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -111,8 +110,6 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
         super.onPause();
         if (cameraView != null)
             cameraView.disableView();
-        if (alarm.isPlaying())
-            alarm.stop();
     }
 
     @Override
@@ -156,22 +153,20 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                     new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         if (mZoomCorner == null || mZoomWindow == null)
             CreateAuxiliaryMats();
+
         Rect[] facesArray = faces.toArray();
         for (int i = 0; i < facesArray.length; i++) {
-            Rect r = facesArray[i];
-            Imgproc.rectangle(mGray, r.tl(), r.br(), new Scalar(0, 255, 0, 255), 3);
-            Imgproc.rectangle(mRgba, r.tl(), r.br(), new Scalar(0, 255, 0, 255), 3);
+            Rect face = facesArray[i];
+            Imgproc.rectangle(mGray, face.tl(), face.br(), new Scalar(0, 255, 0, 255), 3);
+            Imgproc.rectangle(mRgba, face.tl(), face.br(), new Scalar(0, 255, 0, 255), 3);
 
-            eyearea = new Rect(r.x + r.width / 8, (int) (r.y + (r.height / 4.5)), r.width - 2 * r.width / 8, (int) (r.height / 3.0));
+            eyearea = new Rect(face.x + face.width / 8, (int) (face.y + (face.height / 4.5)), face.width - 2 * face.width / 8, (int) (face.height / 3.0));
             Imgproc.rectangle(mRgba, eyearea.tl(), eyearea.br(), new Scalar(255, 0, 0, 255), 2);
-            Rect eyearea_right = new Rect(r.x + r.width / 16, (int) (r.y + (r.height / 4.5)), (r.width - 2 * r.width / 16) / 2, (int) (r.height / 3.0));
-            Rect eyearea_left = new Rect(r.x + r.width / 16 + (r.width - 2 * r.width / 16) / 2, (int) (r.y + (r.height / 4.5)), (r.width - 2 * r.width / 16) / 2, (int) (r.height / 3.0));
-            Imgproc.rectangle(mRgba, eyearea_left.tl(), eyearea_left.br(), new Scalar(255, 0, 0, 255), 2);
-            Imgproc.rectangle(mRgba, eyearea_right.tl(), eyearea_right.br(), new Scalar(255, 0, 0, 255), 2);
+            Rect eyearea_right = new Rect(face.x + face.width / 16, (int) (face.y + (face.height / 4.5)), (face.width - 2 * face.width / 16) / 2, (int) (face.height / 3.0));
+            Rect eyearea_left = new Rect(face.x + face.width / 16 + (face.width - 2 * face.width / 16) / 2, (int) (face.y + (face.height / 4.5)), (face.width - 2 * face.width / 16) / 2, (int) (face.height / 3.0));
+//            Imgproc.rectangle(mRgba, eyearea_left.tl(), eyearea_left.br(), new Scalar(255, 0, 0, 255), 2);
+//            Imgproc.rectangle(mRgba, eyearea_right.tl(), eyearea_right.br(), new Scalar(255, 0, 0, 255), 2);
 
-            boolean eyeRight = false, eyeLeft = false;
-            int status = 0;
-            //phat hien mat phai
             Mat mROIRight = mGray.submat(eyearea_right);
             MatOfRect eyesRight = new MatOfRect();
             mCascadeER.detectMultiScale(mROIRight, eyesRight, 1.15, 2, Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30), new Size());
@@ -181,19 +176,6 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_right.x + e.x;
                 e.y = eyearea_right.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
-                if (e.x > e.y)
-                    e.x = e.y;
-                else
-                    e.y = e.x;
-                //Xacs dinh trang thai cua mat
-                Mat eye = mGray.submat(e);
-                Imgproc.resize(eye, eye, new Size(24, 24));
-                status = SVMUtil.detectStatusEye(svm, eye);
-                if (status == EYE_OPEN)
-                    eyeRight = true;
-                else if (status == EYE_CLOSE)
-                    eyeRight = false;
-                Log.i("Status Eye Right", String.valueOf(status));
                 break;
             }
 
@@ -207,19 +189,6 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_left.x + e.x;
                 e.y = eyearea_left.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
-                if (e.x > e.y)
-                    e.x = e.y;
-                else
-                    e.y = e.x;
-                //Xacs dinh trang thai cua mat
-                Mat eye = mGray.submat(e);
-                Imgproc.resize(eye, eye, new Size(24, 24));
-                status = SVMUtil.detectStatusEye(svm, eye);
-                if (status == EYE_OPEN)
-                    eyeLeft = true;
-                else if (status == EYE_CLOSE)
-                    eyeLeft = false;
-                Log.i("Status Eye Left", String.valueOf(status));
                 break;
             }
 //            if (learn_frames < 5) {
