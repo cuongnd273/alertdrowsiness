@@ -13,42 +13,56 @@ public class User implements Serializable {
     public String Telephone;
     public String Address;
     public String Sex;
+    public String IdentityCard;
+    public String Email;
 
     public String getUserName() {
         return UserName;
     }
-    public void setUserName(String moTa) {
+    public void setUserName(String UserName) {
         this.UserName = UserName;
     }
 
-    public void getPassword(String maSach) {
+    public void setPassword(String Password) {
         this.Password = Password;
     }
-    public String setPassword() { return Password;}
+    public String getPassword() { return Password;}
 
-    public void getTelephone(String maSach) {
+    public void setTelephone(String Telephone) {
         this.Telephone = Telephone;
     }
-    public String setTelephone() { return Telephone;}
+    public String getTelephone() { return Telephone;}
 
-    public void getAddress(String Address) {
+    public void setAddress(String Address) {
         this.Address = Address;
     }
-    public String setAddress() { return Address;}
+    public String getAddress() { return Address;}
 
-    public void getSex(String Sex) {
+    public void setSex(String Sex) {
         this.Sex = Sex;
     }
-    public String setSex() { return Sex;}
+    public String getSex() { return Sex;}
+
+    public void setIdentityCard(String IdentityCard) {
+        this.IdentityCard = IdentityCard;
+    }
+    public String getIdentityCard() { return IdentityCard;}
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+    public String getEmail() { return Email;}
 
 
     public User(){}
-    public User(String UserName, String Password, String Telephone, String Address, String Sex) {
+    public User(String UserName, String Password, String Telephone, String Address, String Sex, String IdentityCard, String Email) {
         this.UserName = UserName;
         this.Password = Password;
         this.Telephone = Telephone;
         this.Address = Address;
         this.Sex= Sex;
+        this.IdentityCard=IdentityCard;
+        this.Email=Email;
     }
 
 }

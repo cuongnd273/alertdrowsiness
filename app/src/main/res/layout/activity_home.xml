@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"  >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,6 +26,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="25dp"
+                android:layout_marginLeft="-2dp"
                 android:src="@drawable/oto" />
 
             <LinearLayout
@@ -39,24 +40,27 @@
                     android:id="@+id/img_places"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="20dp"
+
+                    android:layout_marginLeft="17dp"
                     android:src="@drawable/ic_google_map" />
 
                 <ImageView
 
-                    android:id="@+id/imgiconhome"
+                    android:id="@+id/img_iconhome"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp" />
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/logo"
+                    />
 
                 <ImageView
 
                     android:id="@+id/img_history"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
 
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="0dp"
                     android:src="@drawable/ic_history" />
             </LinearLayout>
 
@@ -66,8 +70,9 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:src="@drawable/ic_update" />
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="-2dp"
+                android:src="@drawable/csdl" />
 
 
         </LinearLayout>

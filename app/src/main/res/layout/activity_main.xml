@@ -70,6 +70,17 @@
             android:text="Login"
             android:textColor="@android:color/white"
             />
+        <TextView android:id="@+id/tvcreateuser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="No account yet? Create one"
+            android:gravity="center"
+            android:textSize="16dip"
+            android:textColor="@android:color/white"
+            android:textStyle="italic"
+            android:onClick="onClick"
+            android:clickable="true"/>
     </LinearLayout>
 
 
