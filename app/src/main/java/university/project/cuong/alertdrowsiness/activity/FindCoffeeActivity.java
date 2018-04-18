@@ -40,6 +40,7 @@ import java.util.Map;
 
 import university.project.cuong.alertdrowsiness.R;
 import university.project.cuong.alertdrowsiness.model.Place;
+import university.project.cuong.alertdrowsiness.utils.GPSTracker;
 
 
 public class FindCoffeeActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -63,6 +64,10 @@ public class FindCoffeeActivity extends FragmentActivity implements OnMapReadyCa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         getPlaces();
+        GPSTracker gps = new GPSTracker(this);
+        double latitude = gps.getLatitude();
+        double longitude = gps.getLongitude();
+        Log.i("Vi tri hien tai: ",String.valueOf(latitude)+"-"+String.valueOf(longitude));
     }
     void getControls(){
         spinner=findViewById(R.id.option_radius);

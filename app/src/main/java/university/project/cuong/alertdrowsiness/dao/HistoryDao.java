@@ -32,7 +32,6 @@ public class HistoryDao {
     }
     ArrayList<History> getHistory(int page){
         ArrayList<History> histories=new ArrayList<>();
-        String sql="select * from "+DA;
-        Cursor cursor=db.rawQuery(sql,null);
+        return histories;
     }
 }
