@@ -1,21 +1,11 @@
 package university.project.cuong.alertdrowsiness.dao;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import java.util.ArrayList;
-
-import university.project.cuong.alertdrowsiness.database.DatabaseHelper;
-import university.project.cuong.alertdrowsiness.model.History;
-
 /**
  * Created by cuong on 4/9/2018.
  */
 
 public class HistoryDao {
-    DatabaseHelper databaseHelper;
+    /*DatabaseHelper databaseHelper;
     SQLiteDatabase db;
 
     public HistoryDao(Context context) {
@@ -34,5 +24,5 @@ public class HistoryDao {
         ArrayList<History> histories=new ArrayList<>();
         String sql="select * from "+DA;
         Cursor cursor=db.rawQuery(sql,null);
-    }
+    }*/
 }

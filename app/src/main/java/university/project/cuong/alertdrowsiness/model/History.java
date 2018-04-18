@@ -1,56 +1,40 @@
 package university.project.cuong.alertdrowsiness.model;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 
 /**
  * Created by Pham Thi Men on 3/29/2018.
  */
 
 public class History implements Serializable {
-    private Timestamp time;
-    private long latLocation;
-    private long longLocation;
-    private long duration;
+    private java.util.Date time;
+    private long latlocation;
+    private long longlocation;
+    private int duration;
 
-    public History(Timestamp time,long duration, long latLocation, long longLocation) {
-        this.time = time;
-        this.latLocation = latLocation;
-        this.longLocation = longLocation;
-        this.duration = duration;
-    }
 
-    public Timestamp getTime() {
-        return time;
-    }
-
-    public void setTime(Timestamp time) {
+    public java.util.Date gettime() { return time;}
+    public void settime(java.util.Date time) {
         this.time = time;
     }
 
-    public long getLatLocation() {
-        return latLocation;
+    public int getduration() { return duration;}
+    public void settduration(int duration) { this.duration = duration;}
+
+    public long getlatlocation() { return latlocation;}
+    public void setlatlocation(long time) {this.latlocation = latlocation;}
+
+    public long getlonglocation() { return longlocation;}
+    public void setlonglocation(long longlocation) {this.longlocation = longlocation;}
+    public History()
+    {
+
     }
 
-    public void setLatLocation(long latLocation) {
-        this.latLocation = latLocation;
-    }
-
-    public long getLongLocation() {
-        return longLocation;
-    }
-
-    public void setLongLocation(long longLocation) {
-        this.longLocation = longLocation;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
+    public History(java.util.Date time, int duration, long latLocation, long longLocation) {
+        this.time = time;
+        this.latlocation = latLocation;
+        this.longlocation = longLocation;
         this.duration = duration;
     }
 }

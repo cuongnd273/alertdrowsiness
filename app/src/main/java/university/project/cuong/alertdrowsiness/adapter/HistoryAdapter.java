@@ -2,29 +2,29 @@ package university.project.cuong.alertdrowsiness.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import university.project.cuong.alertdrowsiness.R;
 import university.project.cuong.alertdrowsiness.model.History;
 
 /**
- * Created by cuong on 4/4/2018.
+ *
  */
 
 public class HistoryAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<History> histories;
+    private List<History> histories;
+    private int layout;
 
-    public HistoryAdapter(Context context, ArrayList<History> histories) {
+    public HistoryAdapter(Context context, int layout, List<History> histories) {
         this.context = context;
         this.histories = histories;
+        this.layout=layout;
     }
 
     @Override
@@ -49,22 +49,22 @@ public class HistoryAdapter extends BaseAdapter {
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v=inflater.inflate(R.layout.item_history,viewGroup,false);
             ViewHolder viewHolder=new ViewHolder();
-            viewHolder.map=v.findViewById(R.id.map);
             viewHolder.time=v.findViewById(R.id.time);
             viewHolder.duration=v.findViewById(R.id.duration);
             v.setTag(viewHolder);
         }
         ViewHolder viewHolder= (ViewHolder) v.getTag();
-        viewHolder.time.setText(String.valueOf(histories.get(i).getTime()));
-        viewHolder.duration.setText(String.valueOf(histories.get(i).getDuration()));
+        viewHolder.time.setText(String.valueOf(histories.get(i).gettime()));
+        viewHolder.duration.setText(String.valueOf(histories.get(i).getduration()));
         return v;
     }
     class ViewHolder{
         TextView time;
         TextView duration;
-        ImageView map;
+
     }
     public void refresh(){
         this.notifyDataSetChanged();
     }
+
 }
