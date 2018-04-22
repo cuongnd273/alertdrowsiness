@@ -1,12 +1,14 @@
 package university.project.cuong.alertdrowsiness.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -26,6 +28,8 @@ import org.opencv.ml.SVM;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
 
+import java.util.LinkedList;
+
 import university.project.cuong.alertdrowsiness.R;
 import university.project.cuong.alertdrowsiness.utils.CascadeFileUtil;
 import university.project.cuong.alertdrowsiness.utils.SVMUtil;
@@ -33,6 +37,7 @@ import university.project.cuong.alertdrowsiness.utils.SVMUtil;
 
 public class DetectDrowsinessActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
     private JavaCameraView cameraView;
+    private Button alert;
     private Mat mRgba;
     private Mat mGray;
     private Mat teplateR;
@@ -66,7 +71,11 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
 
     long timeClose = System.currentTimeMillis();
     boolean closeEye = false;
+    boolean isOpen,foundLeft,foundRight;
+    boolean isDrowsiness=false;
+    MediaPlayer player;
     SVM svm;
+    LinkedList<Boolean> statuses;
     BaseLoaderCallback callback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -116,6 +125,11 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
     protected void onDestroy() {
         super.onDestroy();
         this.mWakeLock.release();
+        if(player!=null){
+            player.stop();
+            player.release();
+            player=null;
+        }
     }
 
     void getControls() {
@@ -123,6 +137,8 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
         cameraView.setEnabled(true);
         cameraView.setCameraIndex(1);
         cameraView.setCvCameraViewListener(this);
+        alert=findViewById(R.id.alert);
+        statuses=new LinkedList<>();
     }
 
     @Override
@@ -167,6 +183,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
 //            Imgproc.rectangle(mRgba, eyearea_left.tl(), eyearea_left.br(), new Scalar(255, 0, 0, 255), 2);
 //            Imgproc.rectangle(mRgba, eyearea_right.tl(), eyearea_right.br(), new Scalar(255, 0, 0, 255), 2);
 
+            foundRight=false;foundLeft=false;
             Mat mROIRight = mGray.submat(eyearea_right);
             MatOfRect eyesRight = new MatOfRect();
             mCascadeER.detectMultiScale(mROIRight, eyesRight, 1.15, 2, Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30), new Size());
@@ -176,6 +193,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_right.x + e.x;
                 e.y = eyearea_right.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
+                foundRight=true;
                 break;
             }
 
@@ -189,21 +207,67 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_left.x + e.x;
                 e.y = eyearea_left.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
+                foundLeft=true;
                 break;
             }
-//            if (learn_frames < 5) {
-//                teplateR = get_template(mCascadeER, eyearea_right, 24);
-//                teplateL = get_template(mCascadeEL, eyearea_left, 24);
-//                learn_frames++;
-//            } else {
-//
-//
-//                match_value = match_eye(eyearea_right, teplateR, DetectDrowsinessActivity.method);
-//
-//                match_value = match_eye(eyearea_left, teplateL, DetectDrowsinessActivity.method);
-//            }
-//            Imgproc.resize(eyearea_right, mZoomWindow2, mZoomWindow2.size());
-//            Imgproc.resize(mRgba.submat(eyearea_right), mZoomWindow, mZoomWindow.size());
+            isOpen=false;
+            if(foundRight || foundLeft)
+                isOpen=true;
+            if (statuses.size() < 10) {
+                statuses.add(isOpen);
+            } else {
+                if (isOpen) {
+                    if (isDrowsiness) {
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player=null;
+                        }
+                        alert.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                alert.setBackgroundColor(Color.GREEN);
+                            }
+                        }, 0);
+                    }
+                    isDrowsiness = false;
+                } else {
+                    isDrowsiness = true;
+                    for (boolean status : statuses) {
+                        if (status) {
+                            isDrowsiness = false;
+                            break;
+                        }
+                    }
+                    if (isDrowsiness) {
+                        if(player==null){
+                            player = MediaPlayer.create(DetectDrowsinessActivity.this, R.raw.alert);
+                            player.setLooping(true);
+                            player.start();
+                        }
+                        alert.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                alert.setBackgroundColor(Color.RED);
+                            }
+                        }, 0);
+                    } else {
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player=null;
+                        }
+                        alert.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                alert.setBackgroundColor(Color.GREEN);
+                            }
+                        }, 0);
+                    }
+                }
+                statuses.pollFirst();
+                statuses.add(isOpen);
+            }
             break;
         }
 

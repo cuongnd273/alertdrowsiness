@@ -21,9 +21,10 @@ public class CascadeFileUtil {
         CascadeClassifier mJavaDetector = null;
         try {
             // load cascade file from application resources
-            InputStream is = context.getResources().openRawResource(R.raw.haarcascade_frontalface_alt);
+            InputStream is = context.getResources().openRawResource(R.raw.my_cascade);
             File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_alt.xml");
+            File mCascadeFile = new File(cascadeDir, "my_cascade" +
+                    ".xml");
             FileOutputStream os = new FileOutputStream(mCascadeFile);
 
             byte[] buffer = new byte[4096];

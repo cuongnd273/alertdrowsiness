@@ -27,13 +27,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import university.project.cuong.alertdrowsiness.R;
+import university.project.cuong.alertdrowsiness.contants.APIConstants;
 import university.project.cuong.alertdrowsiness.model.User;
 
 public class SignInActivity extends AppCompatActivity {
 
     private EditText etname,etpassword,etaddress,ettelephone,etsex,etidentitycard,etemail;
     private Button btnCreate;
-    String urlSignIn = "http://192.168.0.105/server/signin.php";
     private RequestQueue requestQueue;
     private StringRequest stringRequest;
     private ProgressDialog pDialog;
@@ -117,7 +117,7 @@ public class SignInActivity extends AppCompatActivity {
               // && checkEditText(ettelephone)&& checkEditText(etsex) && isValidTelephone(ettelephone.getText().toString().trim())) {
             pDialog.show();
             RequestQueue requestQueue = Volley.newRequestQueue(this);
-            StringRequest registerRequest = new StringRequest(Request.Method.POST, urlSignIn,
+            StringRequest registerRequest = new StringRequest(Request.Method.POST, APIConstants.URL_SIGN_IN,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

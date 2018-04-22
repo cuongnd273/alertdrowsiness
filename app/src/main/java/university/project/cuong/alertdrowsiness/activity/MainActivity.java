@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import university.project.cuong.alertdrowsiness.R;
+import university.project.cuong.alertdrowsiness.contants.APIConstants;
 import university.project.cuong.alertdrowsiness.dao.SessionManager;
 import university.project.cuong.alertdrowsiness.model.User;
 
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
    // public static String PREF_USERNAME = "username";
     //public static String PREF_PASSWORD = "password";
 
-    String urlLogin = "http://192.168.0.105/server/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (checkEditText(UserName) && checkEditText(Password)) {
             pDialog.show();
             RequestQueue requestQueue = Volley.newRequestQueue(this);
-            StringRequest requestLogin = new StringRequest(Request.Method.POST, urlLogin,
+            StringRequest requestLogin = new StringRequest(Request.Method.POST, APIConstants.URL_LOGIN,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

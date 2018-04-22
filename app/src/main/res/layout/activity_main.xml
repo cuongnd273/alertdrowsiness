@@ -32,7 +32,7 @@
             android:drawableTint="@android:color/white"
             android:hint="Username"
             android:padding="10dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
 
         <EditText

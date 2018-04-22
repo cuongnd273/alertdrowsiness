@@ -1,11 +1,13 @@
 package university.project.cuong.alertdrowsiness.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -74,14 +76,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.card_detectiondrownsiness:
                 boolean hasCamera = isPermissionGranted(PERMISSION);
                 if (hasCamera) {
-                    intent = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
-                    startActivity(intent);
+                    AlertDialog.Builder builder;
+                    builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Phát hiện ngủ gật")
+                            .setMessage("Sử dụng phương pháp")
+                            .setPositiveButton("Phân lớp", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent it = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
+                                    startActivity(it);
+                                }
+                            })
+                            .setNegativeButton("Google Vision", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent it = new Intent(HomeActivity.this, DetectDrowsinessMobileVisionActivity.class);
+                                    startActivity(it);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 } else {
                     ActivityCompat.requestPermissions(HomeActivity.this, new String[]{PERMISSION}, 101);
                 }
                 break;
             case R.id.card_profile:
-                intent = new Intent(HomeActivity.this, UpdatVersionActivity.class);
+                intent = new Intent(HomeActivity.this, InfomationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.card_history:

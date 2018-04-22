@@ -36,6 +36,7 @@ import java.util.Map;
 
 import university.project.cuong.alertdrowsiness.R;
 import university.project.cuong.alertdrowsiness.adapter.HistoryAdapter;
+import university.project.cuong.alertdrowsiness.contants.APIConstants;
 import university.project.cuong.alertdrowsiness.model.History;
 
 
@@ -49,7 +50,6 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
     Date startDate;
     Date endDate;
     HistoryAdapter historyAdapter;
-    String url = "http://192.168.0.105/server/getHistories.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,15 +146,15 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
                 break;
 
             case  R.id.ivfind:
-                getInfomationHistory(url);
+                getInfomationHistory();
                 break;
         }
     }
 
-    private void getInfomationHistory(String url){
+    private void getInfomationHistory(){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String response = null;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, APIConstants.URL_HISTORY, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response != null){
