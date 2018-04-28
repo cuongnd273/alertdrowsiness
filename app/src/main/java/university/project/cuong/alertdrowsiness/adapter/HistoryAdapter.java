@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import university.project.cuong.alertdrowsiness.R;
@@ -54,8 +56,8 @@ public class HistoryAdapter extends BaseAdapter {
             v.setTag(viewHolder);
         }
         ViewHolder viewHolder= (ViewHolder) v.getTag();
-        viewHolder.time.setText(String.valueOf(histories.get(i).gettime()));
-        viewHolder.duration.setText(String.valueOf(histories.get(i).getduration()));
+        viewHolder.time.setText(convertTime(histories.get(i).getTime()));
+        viewHolder.duration.setText(String.valueOf(histories.get(i).getDuration()));
         return v;
     }
     class ViewHolder{
@@ -66,5 +68,9 @@ public class HistoryAdapter extends BaseAdapter {
     public void refresh(){
         this.notifyDataSetChanged();
     }
-
+    public String convertTime(long time){
+        Date date=new Date(time);
+        SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return df2.format(date);
+    }
 }

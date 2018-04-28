@@ -23,8 +23,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private CardView imghistrory;
     private CardView imgplaces;
     private CardView imgapp;
-    private
-    static final String PERMISSION = Manifest.permission.CAMERA;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,52 +50,31 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 101 && permissions[0].equals(PERMISSION)) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Ứng dụng không thể hoạt động nếu không được cấp quyền", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    boolean isPermissionGranted(String permission) {
-        int result = ContextCompat.checkSelfPermission(this, permission);
-        if (result == PackageManager.PERMISSION_GRANTED) return true;
-        else if (result == PackageManager.PERMISSION_DENIED) return false;
-        else throw new IllegalStateException("Cannot check permission " + permission);
-    }
 
     @Override
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.card_detectiondrownsiness:
-                boolean hasCamera = isPermissionGranted(PERMISSION);
-                if (hasCamera) {
-                    AlertDialog.Builder builder;
-                    builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Phát hiện ngủ gật")
-                            .setMessage("Sử dụng phương pháp")
-                            .setPositiveButton("Phân lớp", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent it = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
-                                    startActivity(it);
-                                }
-                            })
-                            .setNegativeButton("Google Vision", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent it = new Intent(HomeActivity.this, DetectDrowsinessMobileVisionActivity.class);
-                                    startActivity(it);
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                } else {
-                    ActivityCompat.requestPermissions(HomeActivity.this, new String[]{PERMISSION}, 101);
-                }
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("Phát hiện ngủ gật")
+                        .setMessage("Sử dụng phương pháp")
+                        .setPositiveButton("Phân lớp", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent it = new Intent(HomeActivity.this, DetectDrowsinessActivity.class);
+                                startActivity(it);
+                            }
+                        })
+                        .setNegativeButton("Google Vision", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent it = new Intent(HomeActivity.this, DetectDrowsinessMobileVisionActivity.class);
+                                startActivity(it);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
                 break;
             case R.id.card_profile:
                 intent = new Intent(HomeActivity.this, InfomationActivity.class);

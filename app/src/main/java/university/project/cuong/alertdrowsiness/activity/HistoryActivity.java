@@ -166,11 +166,10 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
                                 JSONObject object = arr.getJSONObject(i);
                                 System.out.println("ObjectValue" + i + "" + object.toString());
                                 History history = new History();
-                                history.settduration(object.getInt("duration"));
-                                history.setlatlocation(object.getLong("latlocation"));
-                                history.setlonglocation(object.getLong("longlocation"));
-                                Date time =stringToDate(object.getString("time").toString(),"yyyy/MM/dd");
-                                history.settime(time);
+                                history.setDuration(object.getInt("duration"));
+                                history.setLatlocation(object.getLong("latlocation"));
+                                history.setLonglocation(object.getLong("longlocation"));
+                                history.setTime(object.getLong("time"));
                                 arrHistories.add(history);
 
                             } catch (JSONException e) {

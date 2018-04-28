@@ -1,40 +1,58 @@
 package university.project.cuong.alertdrowsiness.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Pham Thi Men on 3/29/2018.
  */
 
 public class History implements Serializable {
-    private java.util.Date time;
+    private long time;
     private long latlocation;
     private long longlocation;
     private int duration;
 
-
-    public java.util.Date gettime() { return time;}
-    public void settime(java.util.Date time) {
-        this.time = time;
-    }
-
-    public int getduration() { return duration;}
-    public void settduration(int duration) { this.duration = duration;}
-
-    public long getlatlocation() { return latlocation;}
-    public void setlatlocation(long time) {this.latlocation = latlocation;}
-
-    public long getlonglocation() { return longlocation;}
-    public void setlonglocation(long longlocation) {this.longlocation = longlocation;}
-    public History()
-    {
+    public History() {
 
     }
 
-    public History(java.util.Date time, int duration, long latLocation, long longLocation) {
+    public History(long time, int duration, long latLocation, long longLocation) {
         this.time = time;
         this.latlocation = latLocation;
         this.longlocation = longLocation;
+        this.duration = duration;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public long getLatlocation() {
+        return latlocation;
+    }
+
+    public void setLatlocation(long latlocation) {
+        this.latlocation = latlocation;
+    }
+
+    public long getLonglocation() {
+        return longlocation;
+    }
+
+    public void setLonglocation(long longlocation) {
+        this.longlocation = longlocation;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 }

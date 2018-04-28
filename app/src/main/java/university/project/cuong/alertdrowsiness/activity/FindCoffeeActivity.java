@@ -55,6 +55,7 @@ public class FindCoffeeActivity extends FragmentActivity implements OnMapReadyCa
     String[] radiusSpinner={"500 m","1 km","5 km"};
     int[] radius={500,1000,5000};
     private GoogleMap mMap;
+    double latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +66,9 @@ public class FindCoffeeActivity extends FragmentActivity implements OnMapReadyCa
         mapFragment.getMapAsync(this);
         getPlaces();
         GPSTracker gps = new GPSTracker(this);
-        double latitude = gps.getLatitude();
-        double longitude = gps.getLongitude();
-        Log.i("Vi tri hien tai: ",String.valueOf(latitude)+"-"+String.valueOf(longitude));
+        latitude = gps.getLatitude();
+        longitude = gps.getLongitude();
+        Log.i("Location: ", latitude+"-"+longitude);
     }
     void getControls(){
         spinner=findViewById(R.id.option_radius);
@@ -92,7 +93,7 @@ public class FindCoffeeActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng my_home = new LatLng(21.0427074, 105.7798578);
+        LatLng my_home = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(my_home).title("My Home"));
         CameraPosition cameraPosition = new CameraPosition.Builder().target(
                 my_home).zoom(12).build();

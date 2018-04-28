@@ -3,6 +3,7 @@ package university.project.cuong.alertdrowsiness.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by cuong on 4/9/2018.
@@ -23,8 +24,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql="create history ("+HISTORY_ID+" integer auto_increment primary key,"+HISTORY_TIME+" timestamp,"+HISTORY_LAT+" real,"+HISTORY_LNG+" real,"+HISTORY_DURATION+" integer)";
+        String sql="create table history ("+HISTORY_ID+" integer primary key AUTOINCREMENT,"+HISTORY_TIME+" real,"+HISTORY_LAT+" real,"+HISTORY_LNG+" real,"+HISTORY_DURATION+" integer)";
         sqLiteDatabase.execSQL(sql);
+        Log.i("SQLITE", sql);
     }
 
     @Override

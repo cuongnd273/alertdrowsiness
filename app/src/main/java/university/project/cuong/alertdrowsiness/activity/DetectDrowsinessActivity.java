@@ -32,6 +32,7 @@ import java.util.LinkedList;
 
 import university.project.cuong.alertdrowsiness.R;
 import university.project.cuong.alertdrowsiness.utils.CascadeFileUtil;
+import university.project.cuong.alertdrowsiness.utils.GPSTracker;
 import university.project.cuong.alertdrowsiness.utils.SVMUtil;
 
 
@@ -71,11 +72,12 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
 
     long timeClose = System.currentTimeMillis();
     boolean closeEye = false;
-    boolean isOpen,foundLeft,foundRight;
-    boolean isDrowsiness=false;
+    boolean isOpen, foundLeft, foundRight;
+    boolean isDrowsiness = false;
     MediaPlayer player;
     SVM svm;
     LinkedList<Boolean> statuses;
+    GPSTracker gpsTracker;
     BaseLoaderCallback callback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -125,10 +127,10 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
     protected void onDestroy() {
         super.onDestroy();
         this.mWakeLock.release();
-        if(player!=null){
+        if (player != null) {
             player.stop();
             player.release();
-            player=null;
+            player = null;
         }
     }
 
@@ -137,8 +139,9 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
         cameraView.setEnabled(true);
         cameraView.setCameraIndex(1);
         cameraView.setCvCameraViewListener(this);
-        alert=findViewById(R.id.alert);
-        statuses=new LinkedList<>();
+        alert = findViewById(R.id.alert);
+        statuses = new LinkedList<>();
+        gpsTracker = new GPSTracker(this);
     }
 
     @Override
@@ -183,7 +186,8 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
 //            Imgproc.rectangle(mRgba, eyearea_left.tl(), eyearea_left.br(), new Scalar(255, 0, 0, 255), 2);
 //            Imgproc.rectangle(mRgba, eyearea_right.tl(), eyearea_right.br(), new Scalar(255, 0, 0, 255), 2);
 
-            foundRight=false;foundLeft=false;
+            foundRight = false;
+            foundLeft = false;
             Mat mROIRight = mGray.submat(eyearea_right);
             MatOfRect eyesRight = new MatOfRect();
             mCascadeER.detectMultiScale(mROIRight, eyesRight, 1.15, 2, Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30), new Size());
@@ -193,7 +197,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_right.x + e.x;
                 e.y = eyearea_right.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
-                foundRight=true;
+                foundRight = true;
                 break;
             }
 
@@ -207,12 +211,12 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                 e.x = eyearea_left.x + e.x;
                 e.y = eyearea_left.y + e.y;
                 Imgproc.rectangle(mRgba, e.tl(), e.br(), new Scalar(255, 255, 0, 255), 2);
-                foundLeft=true;
+                foundLeft = true;
                 break;
             }
-            isOpen=false;
-            if(foundRight || foundLeft)
-                isOpen=true;
+            isOpen = false;
+            if (foundRight || foundLeft)
+                isOpen = true;
             if (statuses.size() < 10) {
                 statuses.add(isOpen);
             } else {
@@ -221,7 +225,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                         if (player != null) {
                             player.stop();
                             player.release();
-                            player=null;
+                            player = null;
                         }
                         alert.postDelayed(new Runnable() {
                             @Override
@@ -240,11 +244,12 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                         }
                     }
                     if (isDrowsiness) {
-                        if(player==null){
+                        if (player == null) {
                             player = MediaPlayer.create(DetectDrowsinessActivity.this, R.raw.alert);
                             player.setLooping(true);
                             player.start();
                         }
+                        //Them canh bao vao lich su
                         alert.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -255,7 +260,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                         if (player != null) {
                             player.stop();
                             player.release();
-                            player=null;
+                            player = null;
                         }
                         alert.postDelayed(new Runnable() {
                             @Override
