@@ -2,6 +2,7 @@ package university.project.cuong.alertdrowsiness.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,8 @@ import org.opencv.objdetect.Objdetect;
 import java.util.LinkedList;
 
 import university.project.cuong.alertdrowsiness.R;
+import university.project.cuong.alertdrowsiness.dao.HistoryDao;
+import university.project.cuong.alertdrowsiness.model.History;
 import university.project.cuong.alertdrowsiness.utils.CascadeFileUtil;
 import university.project.cuong.alertdrowsiness.utils.GPSTracker;
 import university.project.cuong.alertdrowsiness.utils.SVMUtil;
@@ -78,6 +81,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
     SVM svm;
     LinkedList<Boolean> statuses;
     GPSTracker gpsTracker;
+    HistoryDao historyDao;
     BaseLoaderCallback callback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -142,6 +146,8 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
         alert = findViewById(R.id.alert);
         statuses = new LinkedList<>();
         gpsTracker = new GPSTracker(this);
+        historyDao=new HistoryDao(this);
+        historyDao.open();
     }
 
     @Override
@@ -248,6 +254,7 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
                             player = MediaPlayer.create(DetectDrowsinessActivity.this, R.raw.alert);
                             player.setLooping(true);
                             player.start();
+                            insertHistory();
                         }
                         //Them canh bao vao lich su
                         alert.postDelayed(new Runnable() {
@@ -378,5 +385,9 @@ public class DetectDrowsinessActivity extends AppCompatActivity implements Camer
     @Override
     public void onClick(View view) {
 
+    }
+    public void insertHistory(){
+        Location location=gpsTracker.getLocation();
+        historyDao.insertHistory(new History(location.getLatitude(),location.getLongitude()));
     }
 }

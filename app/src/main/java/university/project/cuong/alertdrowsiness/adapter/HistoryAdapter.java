@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +66,8 @@ public class HistoryAdapter extends BaseAdapter {
         TextView duration;
 
     }
-    public void refresh(){
+    public void refresh(ArrayList<History> histories){
+        this.histories=histories;
         this.notifyDataSetChanged();
     }
     public String convertTime(long time){

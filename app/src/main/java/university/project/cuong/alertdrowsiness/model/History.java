@@ -9,19 +9,24 @@ import java.util.Date;
 
 public class History implements Serializable {
     private long time;
-    private long latlocation;
-    private long longlocation;
+    private double latlocation;
+    private double longlocation;
     private int duration;
 
     public History() {
 
     }
 
-    public History(long time, int duration, long latLocation, long longLocation) {
+    public History(long time, int duration, double latLocation, double longLocation) {
         this.time = time;
         this.latlocation = latLocation;
         this.longlocation = longLocation;
         this.duration = duration;
+    }
+
+    public History(double latlocation, double longlocation) {
+        this.latlocation = latlocation;
+        this.longlocation = longlocation;
     }
 
     public long getTime() {
@@ -32,19 +37,19 @@ public class History implements Serializable {
         this.time = time;
     }
 
-    public long getLatlocation() {
+    public double getLatlocation() {
         return latlocation;
     }
 
-    public void setLatlocation(long latlocation) {
+    public void setLatlocation(double latlocation) {
         this.latlocation = latlocation;
     }
 
-    public long getLonglocation() {
+    public double getLonglocation() {
         return longlocation;
     }
 
-    public void setLonglocation(long longlocation) {
+    public void setLonglocation(double longlocation) {
         this.longlocation = longlocation;
     }
 

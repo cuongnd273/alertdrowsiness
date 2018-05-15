@@ -21,6 +21,14 @@ import university.project.cuong.alertdrowsiness.utils.GPSTracker;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private double lat=0,lng=0;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lat=getIntent().getDoubleExtra("lat",0);
+        lng=getIntent().getDoubleExtra("lng",0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +42,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng my_home = new LatLng(21.0427074, 105.7798578);
-        mMap.addMarker(new MarkerOptions().position(my_home).title("My Home"));
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(
-                my_home).zoom(12).build();
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(lat!=0 && lng !=0){
+            LatLng my_home = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(my_home).title("Place Drowsiness"));
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(
+                    my_home).zoom(12).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }

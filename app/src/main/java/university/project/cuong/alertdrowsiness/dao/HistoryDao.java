@@ -24,9 +24,9 @@ public class HistoryDao {
 
     public long insertHistory(History history) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.HISTORY_LAT, 1);
-        contentValues.put(DatabaseHelper.HISTORY_LNG, 2);
-        contentValues.put(DatabaseHelper.HISTORY_DURATION, 3);
+        contentValues.put(DatabaseHelper.HISTORY_TIME,System.currentTimeMillis());
+        contentValues.put(DatabaseHelper.HISTORY_LAT, history.getLatlocation());
+        contentValues.put(DatabaseHelper.HISTORY_LNG, history.getLonglocation());
         return db.insert(DatabaseHelper.TABLE_HISTORY, null, contentValues);
     }
 
@@ -35,9 +35,9 @@ public class HistoryDao {
         Cursor cursor = db.query(DatabaseHelper.TABLE_HISTORY, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             History history = new History();
-            history.setTime(System.currentTimeMillis());
-            history.setLatlocation(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.HISTORY_LAT)));
-            history.setLonglocation(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.HISTORY_LNG)));
+            history.setTime(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.HISTORY_TIME)));
+            history.setLatlocation(cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.HISTORY_LAT)));
+            history.setLonglocation(cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.HISTORY_LNG)));
             history.setDuration(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.HISTORY_DURATION)));
             histories.add(history);
         }

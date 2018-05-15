@@ -63,12 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!hasCamera || !hasAccessFine || !hasAccessCoarse){
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{PERMISSION_CAMERA,PERMISSION_ACCESS_FINE_LOCATION,PERMISSION_ACCESS_COARSE_LOCATION}, 101);
         }
-        HistoryDao dao=new HistoryDao(this);
-        dao.open();
-        //dao.insertHistory(new History());
-        ArrayList<History> histories=dao.getHistory();
-        int size=histories.size();
-        Log.i("SizeHistory", String.valueOf(size));
     }
 
     @Override
